@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Magang - Farah Auliya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #ffffff;
+            font-size: 14pt;
+        }
+
+        .odd {
+            background-color: rgb(223, 129, 214);
+        }
+
+        .even {
+            background-color: rgb(217, 136, 255);
+        }
+
+        .not-tombol button {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .project-img {
+            height: 400px;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .btn-insta {
+            background-color: #f00447;
+            color: white;
+        }
+
+        .btn-insta:hover {
+            background-color: #f882a1;
+            color: white;
+        }
+
+        .navbar {
+            transition: box-shadow 0.3s, background-color 0.3s;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-nav .nav-link {
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: #ffd600 !important;
+            transform: scale(1.08);
+        }
+
+        .fade-section {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const navbar = document.querySelector('.navbar');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const sections = Array.from(document.querySelectorAll('section[id]'));
+
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 30) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+
+                let currentSectionId = sections[0].id;
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= navbar.offsetHeight + 40 && rect.bottom > navbar
+                        .offsetHeight + 40) {
+                        currentSectionId = section.id;
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' +
+                        currentSectionId);
+                });
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('mouseenter', function () {
+                    this.style.textDecoration = 'underline';
+                    this.style.textUnderlineOffset = '6px';
+                });
+                link.addEventListener('mouseleave', function () {
+                    this.style.textDecoration = 'none';
+                });
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            const navbarHeight = navbar.offsetHeight;
+                            const targetPosition = target.getBoundingClientRect().top + window
+                                .pageYOffset - navbarHeight;
+                            window.scrollTo({
+                                top: targetPosition,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+
+            const fadeSections = document.querySelectorAll('.fade-section');
+
+            function showSectionsOnScroll() {
+                fadeSections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 80 && rect.bottom > 0) {
+                        section.classList.add('visible');
+                    } else {
+                        section.classList.remove('visible');
+                    }
+                });
+            }
+            window.addEventListener('scroll', showSectionsOnScroll);
+            window.addEventListener('resize', showSectionsOnScroll);
+            showSectionsOnScroll();
+        });
+    </script>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-info text-white fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-5" href="#home">
+                <h3 style="font-weight: 900;" class="text-white">My Portfolio</h3>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item me-3">
+                        <a class="nav-link active text-white" aria-current="page" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#profile">Profil</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#skills">Keterampilan</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#experience">Pengalaman</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link text-white" href="#projects">Sertifikat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#contact">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" style="padding-top: 15px;" class="odd pb-5 fade-section">
+        <div class="container mt-5">
+            <div class="row pt-5">
+                <div class="col-7 my-auto">
+                    <h1 style="font-weight: 600;">Halo! Nama saya Farah</h1><br>
+                    <p style="text-align: justify; font-size: 14pt;">Saya seorang mahasiswa yang memiliki minat di
+                        bidang multimedia, seperti tiktok, instagram, dan lain-lain. Saya bersemangat untuk
+                        belajar dan berkembang di bidang ini.
+                    </p><br>
+                    <a href="#projects" type="button" class="btn btn-info text-white btn-lg me-3">Lihat Project <i
+                            class="bi bi-arrow-return-right ms-2"></i></a>
+                    <a href="https://drive.google.com/file/d/1ZVMurZkBV9AvGjKpd64QNyzz1pGXqHVV/view?usp=sharing"
+                        target="_blank" download="CV Farah" type="button" class="btn btn-insta btn-lg">Download
+                        CV
+                        <i class="bi bi-filetype-pdf ms-2"></i></a>
+                </div>
+                <div class="col-5 text-end">
+                    <img src="/Logo/farahauliya1.jpg" alt="Image" class="img-fluid rounded-circle w-75 me-5">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="even pb-5 fade-section">
+        <div class="container">
+            <h1 style="font-weight: 900;" class="text-center mb-4 pt-5">Profil Saya</h1>
+            <div class="row">
+                <div class="col-6 my-auto">
+                    <p class="text-justify" style="font-size: 14pt; text-align: justify;">Saya adalah seorang mahasiswa
+                        Administrasi Publik di UPN "Veteran" Jawa Timur. Saya memiliki minat yang kuat dalam hal
+                        multimedia. Berikut beberapa detail mengenai diri saya:</p>
+                    <div class="card bg-white" style="font-size: 14pt;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <p class="fw-bold text-dark">Nama:</p><br>
+                                    <p class="fw-bold text-dark">Tanggal Lahir:</p><br>
+                                    <p class="fw-bold text-dark">Alamat:</p><br><br>
+                                    <p class="fw-bold text-dark">Email:</p><br>
+                                    <p class="fw-bold text-dark">Telepon:</p>
+                                </div>
+                                <div class="col-8">
+                                    <p class="text-dark">Farah Auliya Ludjiansjah</p><br>
+                                    <p class="text-dark">20 Mei 2005</p><br>
+                                    <p class="text-dark">Perumahan Bukit Bambe, Gresik, Indonesia</p><br>
+                                    <p class="text-dark">23041010224@student.upnjatim.ac.id</p><br>
+                                    <p class="text-dark">+62 857-3353-1511</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="d-grid mx-auto w-100 btn btn-info text-white mt-3 rounded-pill"><i
+                            class="bi bi-telephone"></i>Hubungi Saya</a>
+                </div>
+                <div class="col-6 text-center">
+                    <img src="/Logo/farahauliya3.png" alt="Image" class="text-center img-fluid w-100 mb-3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="odd pb-5 fade-section">
+        <div class="container">
+            <h1 style="font-weight: 900;" class="text-center mb-4 pt-5">Keterampilan</h1>
+            <p>Saya memiliki keterampilan dalam hal multimedia. Berikut adalah beberapa keterampilan yang saya kuasai:
+            </p><br>
+            <div class="row justify-content-center">
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white rounded-pill">
+                        <div class="card-body text-center">
+                            <i class="bi bi-tiktok" style="font-size: 32pt;"></i>
+                            <h5 class="card-title mt-2">TikTok</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white rounded-pill">
+                        <div class="card-body text-center">
+                            <i class="bi bi-instagram" style="font-size: 32pt;"></i>
+                            <h5 class="card-title mt-2">Instagram</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="even pb-5 fade-section">
+        <div class="container">
+            <h1 style="font-weight: 900;" class="text-center mb-4 pt-5">Pendidikan dan Pengalaman</h1>
+            <p class="text-center">Berikut beberapa detail pendidikan dan pengalaman selama berada di sebuah instansi
+                maupun organisasi:</p><br>
+            <div class="row">
+                <div class="col-6">
+                    <div class="card bg-info text-white rounded-5">
+                        <h3 style="font-weight: 600;" class="text-center mb-3 mt-3">Pendidikan</h3>
+                        <div class="card-body bg-primary text-white rounded-5 rounded-top-0">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div>
+                                        <p class="fw-bold">Universitas Pembangunan Nasional "Veteran" Jawa Timur</p>
+                                        <p>S1 - Administrasi Publik</p>
+                                    </div><br>
+                                    <div>
+                                        <p class="fw-bold">SMK Muhammadiyah 2 Surabaya</p>
+                                        <p>Jurusan Multimedia</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div>
+                                        <p>(2023 - Sekarang)</p><br>
+                                        <p></p><br>
+                                    </div><br>
+                                    <div>
+                                        <p>(2020 - 2023)</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="card bg-info text-white rounded-5">
+                        <h3 style="font-weight: 600;" class="text-center mb-3 mt-3">Pengalaman</h3>
+                        <div class="card-body bg-primary text-white rounded-5 rounded-top-0">
+                            <div class="row">
+                                <div class="col-8">
+                                    <div>
+                                        <p class="fw-bold">Panitia Unit Kegiatan Mahasiswa Renang</p>
+                                        <p>Anggota Divisi Kesehatan</p>
+                                        <ul>
+                                            <li>Memastikan kesehatan anggota selama kegiatan pendidikan dan pelatihan.
+                                            </li>
+                                        </ul><br>
+                                        <p class="fw-bold">PT Pintu Rejeki Teknik</p>
+                                        <p>Praktik Kerja Industri</p><br>
+                                        <p class="fw-bold">TikTok Live</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div>
+                                        <p>(Februari 2024 - Desember 2024)</p><br><br><br><br><br><br><br>
+                                    </div>
+                                    <div>
+                                        <p>(1 Februari 2022 - 30 April 2022)</p><br>
+                                    </div>
+                                    <div>
+                                        <p>(Januari 2025 - Maret 2025)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="odd pb-5 fade-section">
+        <div class="container">
+            <h1 style="font-weight: 900;" class="text-center mb-4 pt-5">Sertifikat Pencapaian</h1>
+            <div class="row">
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white">
+                        <a href="https://drive.google.com/file/d/1uBOzjvgVIKC_JPdcVQVhxRG_Bn0-xK5g/view?usp=sharing"
+                            target="_blank">
+                            <img src="Project/sertifpraktek.jpg"
+                                class="d-block w-100 card-img-top p-3 rounded-5 project-img"
+                                alt="Sertifikat Praktik Kerja Industri">
+                        </a>
+                        <div class="card-body">
+                            <h5 style="font-weight: 600;" class="card-title mb-4">Sertifikat Praktik Kerja Industri</h5>
+                            <p style="text-align: justify;" class="card-text">Sertifikat ini memberikan informasi
+                                mengenai kegiatan Praktik Kerja Industri di SMK Muhammadiyah 2 Surabaya. Kegiatan ini
+                                berupa pelatihan dan pengalaman kerja di industri multimedia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white">
+                        <a href="https://drive.google.com/file/d/1HkNxbkgqMox3WtlSY-UN6dZMuqtd525C/view?usp=sharing"
+                            target="_blank">
+                            <img src="Project/sertifkompetensi.jpg"
+                                class="d-block w-100 card-img-top p-3 rounded-5 project-img"
+                                alt="Sertifikat Uji Kompetensi">
+                        </a>
+                        <div class="card-body">
+                            <h5 style="font-weight: 600;" class="card-title mb-4">Sertifikat Uji Kompetensi</h5>
+                            <p style="text-align: justify;" class="card-text">Sertifikat ini diberikan kepada peserta
+                                yang telah mengikuti Uji Kompetensi di bidang Multimedia. Uji Kompetensi ini bertujuan
+                                untuk mengukur keterampilan dan pengetahuan peserta dalam bidang yang telah dipelajari.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white">
+                        <a href="https://drive.google.com/file/d/1bBDEaDtD-xfxZALBHspj425EvfuIi0G8/view?usp=sharing"
+                            target="_blank">
+                            <img src="Project/ukmrsertif_001.png"
+                                class="d-block w-100 card-img-top p-3 rounded-5 project-img"
+                                alt="Sertifikat Panitia Friendship Camp">
+                        </a>
+                        <div class="card-body">
+                            <h5 style="font-weight: 600;" class="card-title mb-4">Sertifikat Panitia Friendship Camp
+                            </h5>
+                            <p style="text-align: justify;" class="card-text">Sertifikat ini diberikan pada saat
+                                pelaksanaan Friendship Camp oleh Unit Kegiatan Mahasiswa Renang. Tugas divisi kesehatan
+                                dalam acara Friendship Camp yaitu membantu menjaga kesehatan peserta selama acara
+                                berlangsung.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mb-4">
+                    <div class="card h-100 bg-info text-white">
+                        <a href="https://drive.google.com/file/d/15MekgI44RsoDaIMU9RCcCMN8kdqitmgI/view?usp=sharing"
+                            target="_blank"><img src="Project/sertifstudev.png"
+                                class="d-block w-100 card-img-top p-3 rounded-5 project-img"
+                                alt="Sertifikat Studev Talk">
+                        </a>
+                        <div class="card-body">
+                            <h5 style="font-weight: 600;" class="card-title mb-4">Sertifikat Studev Talk</h5>
+                            <p style="text-align: justify;" class="card-text">Sertifikat ini diberikan saat mengikuti
+                                webinar Studev Talk dengan tema "Menjelajah Dunia Kerja di Jepang (Pahami Peluang dan
+                                Tantangan Menjadi Profesional di Jepang)".</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section style="padding-bottom: 75px;" id="contact" class="even fade-section">
+        <div class="container">
+            <h1 style="font-weight: 900;" class="text-center mb-4 pt-5">Kontak</h1>
+            <p>Hubungi saya untuk informasi lebih lanjut dengan kontak yang tertera dibawah ini:</p>
+            <div class="row align-items-center justify-content-center">
+                <a href="https://instagram.com/farahauliyya" target="_blank"
+                    class="btn btn-insta col-4 mx-auto rounded-start-pill">
+                    <div class="card-body text-center d-flex flex-column align-items-center">
+                        <i class="bi bi-instagram" style="font-size: 32pt;"></i>
+                        <span class="mt-2" style="font-size: 24pt;">Farah Auliya</span>
+                    </div>
+                </a>
+                <a href="https://www.linkedin.com/in/farah-auliya-ludjiansjah-884152289/" target="_blank"
+                    class="btn btn-info col-4 mx-auto rounded-0">
+                    <div class="card-body text-center d-flex flex-column align-items-center">
+                        <i class="bi bi-linkedin" style="font-size: 32pt;"></i>
+                        <span class="mt-2" style="font-size: 24pt;">Farah Auliya Ludjiansjah</span>
+                    </div>
+                </a>
+                <a href="mailto:23041010224@student.upnjatim.ac.id" target="_blank"
+                    class="btn btn-danger col-4 mx-auto rounded-end-pill">
+                    <div class="card-body text-center d-flex flex-column align-items-center">
+                        <i class="bi bi-envelope" style="font-size: 32pt;"></i>
+                        <span class="mt-2" style="font-size: 24pt;">Farah Auliya L</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary text-white fixed-bottom">
+        <div class="container text-center py-2">
+            <span>&copy; 2025 Farah Auliya Ludjiansjah. All rights reserved.</span>
+        </div>
+    </footer>
+</body>
+
+</html>
